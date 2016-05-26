@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="titulo">Página Inicial</ui:define>
+            <ui:define name="tabs">
+                <li class="active">
+                    <a href="index.jsf">Início</a>
+                </li>
+                <li><a href="cadastro.jsf">Cadastrar livros</a></li>
+                <li><a href="emprestimo.jsf">Realizar empréstimos</a></li>
+            </ui:define>
+            <ui:define name="cabecalho">Biblioteca on-line</ui:define>
+            <ui:define name="conteudo">
+                <label id="welcome">Seja bem-vindo!</label>
+                <label id="livros">Consulte os livros que temos à disposição:</label>
+                <h:form>
+                    <h:dataTable  styleClass="tabela"   headerClass="cabecalho"  value="#{livroBean.livrosModel}" var="livro">
+                        <h:column class="coluna">																		
+                            <f:facet name="header">																
+                                <h:outputText value="Título"/>						
+                            </f:facet>
+                            <h:outputText value="#{livro.titulo}"/> 
+                        </h:column>
+                        <h:column>																																			
+                            <f:facet name="header">
+                                <h:outputText value="Ano"/>
+                            </f:facet>
+                            <h:outputText value="#{livro.ano}"/>
+                        </h:column>
+                        <h:column>																																			
+                            <f:facet name="header">
+                                <h:outputText value="Autores"/>
+                            </f:facet>
+                            <h:outputText value="#{livro.autores}"/>
+                        </h:column>
+                        <h:column>																																			
+                            <f:facet name="header">
+                                <h:outputText value="Editora"/>
+                            </f:facet>
+                            <h:outputText value="#{livro.editora}"/>
+                        </h:column>
+                        <h:column>																																			
+                            <f:facet name="header">
+                                <h:outputText value="Edição"/>
+                            </f:facet>
+                            <h:outputText value="#{livro.edicao}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

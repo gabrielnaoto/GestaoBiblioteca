@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="titulo">Cadastrar livros</ui:define>
+            <ui:define name="tabs">
+                <li><a href="index.jsf">Início</a></li>
+                <li class="active" ><a  href="cadastro.jsf">Cadastrar livros</a></li>
+                <li><a href="emprestimo.jsf">Realizar empréstimos</a></li>
+            </ui:define>
+            <ui:define name="cabecalho">Biblioteca on-line</ui:define>
+            <ui:define name="conteudo">
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Título:"/>
+                        <h:inputText id="input-titulo" value="#{livroBean.livro.titulo}" 	required="true"
+                                     requiredMessage="É necessário informar um título"/>
+                        <h:message for="input-titulo" class="erro"/>
+
+                        <h:outputText value="Ano:"/>
+                        <h:inputText id="input-ano" value="#{livroBean.livro.ano}" 	required="true"
+                                     requiredMessage="É necessário informar um ano"  validatorMessage="Ano inválido">
+                            <f:validateDoubleRange minimum="1500" maximum="2016"/>
+                        </h:inputText>
+                        <h:message for="input-ano" class="erro"/>
+
+
+                        <h:outputText value="Autores:"/>
+                        <h:inputText id="input-autores" value="#{livroBean.livro.autores}" 	required="true"
+                                     requiredMessage="É necessário informar pelo menos um autor">
+                        </h:inputText>
+                        <h:message for="input-autores" class="erro"/>
+
+                        <h:outputText value="Editora:"/>
+                        <h:inputText id="input-editora" value="#{livroBean.livro.editora}" 	required="true"
+                                     requiredMessage="É necessário informar uma editora"/>
+                        <h:message for="input-editora" class="erro"/>
+
+                        <h:outputText value="Edição:"/>
+                        <h:inputText id="input-edicao" value="#{livroBean.livro.edicao}" 	required="true"
+                                     requiredMessage="É necessário informar uma edição" validatorMessage="Valor inválido">
+                            <f:validateDoubleRange minimum="1" maximum="999"/>
+                        </h:inputText>
+                        <h:message for="input-edicao" class="erro"/>
+
+                        <h:commandButton id="salvar" value="Cadastrar" action="#{livroBean.cadastrar()}"/>
+                    </h:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

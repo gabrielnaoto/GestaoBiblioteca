@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="titulo">Realizar empréstimo</ui:define>
+            <ui:define name="tabs">
+                <li><a href="index.jsf">Início</a></li>
+                <li><a href="cadastro.jsf">Cadastrar livros</a></li>
+                <li class="active"><a  href="emprestimo.jsf">Realizar empréstimos</a></li>
+            </ui:define>
+            <ui:define name="cabecalho">Biblioteca on-line</ui:define>
+            <ui:define name="conteudo">
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <h:outputText value="CPF:"/>
+                        <h:inputText id="input-cpf" value="#{emprestimoBean.emprestimo.cpf}" 	required="true"
+                                     requiredMessage="É necessário informar um CPF" validatorMessage="Valor inválido">
+                            <f:validateLongRange minimum="1" maximum="99999999999"/>
+                        </h:inputText>
+                        <h:message for="input-cpf" class="erro"/>
+
+                        <h:outputText value="Livro:"/>
+                        <h:selectOneMenu id="input-livro" value="#{emprestimoBean.emprestimo.livro}">
+                            <f:selectItems
+                                value="#{emprestimoBean.livros}"
+                                var="livro"
+                                itemValue="#{livro.titulo}"
+                                itemLabel="#{livro.titulo}"/>
+                        </h:selectOneMenu>
+                        <label></label>
+
+                        <h:outputText value="Data de devolução:"/>
+                        <h:inputText id="input-devolucao" value="#{emprestimoBean.emprestimo.devolucao}" 	required="true"
+                                     requiredMessage="É necessário informar a data de devolução" converterMessage="Data deve ter formato dd/MM/yyyy">
+                            <f:convertDateTime
+                                pattern="dd/MM/yyyy"/>
+                        </h:inputText>
+                        <h:message for="input-devolucao" class="erro"/>
+
+                        <h:commandButton id="salvar" value="Realizar emprestimo" action="#{emprestimoBean.emprestar()}"/>
+                    </h:panelGrid>
+                </h:form>
+
+                <h:form>
+                    <h:dataTable styleClass="tabela" headerClass="cabecalho" value="#{emprestimoBean.emprestimosModel}" var="emprestimo">
+                        <h:column>																		
+                            <f:facet name="header">																
+                                <h:outputText value="CPF"/>						
+                            </f:facet>
+                            <h:outputText value="#{emprestimo.cpf}"/> 
+                        </h:column>
+                        <h:column>																																			
+                            <f:facet name="header">
+                                <h:outputText value="Livro"/>
+                            </f:facet>
+                            <h:outputText value="#{emprestimo.livro}"/>
+                        </h:column>
+                        <h:column>																																			
+                            <f:facet name="header">
+                                <h:outputText value="Data de devolução"/>
+                            </f:facet>
+                            <h:outputText value="#{emprestimo.devolucao}">
+                                <f:convertDateTime
+                                    pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </h:column>
+
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
